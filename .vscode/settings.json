@@ -1,0 +1,14 @@
+pip help{
+    "python.pythonPath": "C:\\Users\\nalig\\AppData\\Local\\Programs\\Python\\Python36-32\\python.exe",
+    "python.unitTest.unittestArgs": [
+        "-v",
+        "-s",
+        ".",
+        "-p",
+        "*test.py"
+    ],
+    "python.unitTest.pyTestEnabled": false,
+    "python.unitTest.nosetestsEnabled": false,
+    "python.unitTest.unittestEnabled": false,
+    "python.unitTest.promptToConfigure": false
+}
