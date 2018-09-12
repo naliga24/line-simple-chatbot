@@ -79,7 +79,7 @@ def reply(replyToken, textList):
     #         "text":text
     #     })
     data={
-    "replyToken":replyToken,
+    "to":"bq0tvFjFgxQN6IL2VIoozuRLoPRhQhEDC4omvN5Ui10",
     "messages":[{
     "type": "location",
     "title": "my location",
