@@ -81,8 +81,11 @@ def reply(replyToken, textList):
     data={
     "to":"bq0tvFjFgxQN6IL2VIoozuRLoPRhQhEDC4omvN5Ui10",
     "messages":[{
-    "type": "text",
-    "text": "my location",
+    "type": "location",
+    "title": "my location",
+    "address": "ฺBangkok, Thailand",
+    "latitude": 35.65910807942215,
+    "longitude": 139.70372892916203
     }]     
     }
     # data = json.dumps({
