@@ -86,8 +86,8 @@ def reply(replyToken, textList):
     "longitude": 139.70372892916203
     }
     data = json.dumps({
-        "replyToken":replyToken,
-        "messages":{
+    "replyToken":replyToken,
+    "messages":{
     "type": "location",
     "title": "my location",
     "address": "ฺBangkok, Thailand",
