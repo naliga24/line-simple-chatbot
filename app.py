@@ -72,26 +72,26 @@ def reply(replyToken, textList):
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': LINE_API_KEY
     }
-    msgs = []
-    for text in textList:
-        msgs.append({
-            "type":"text",
-            "text":text
-        })
-    # data=[{
-    # "replyToken":replyToken,
-    # "messages":{
-    # "type": "location",
-    # "title": "my location",
-    # "address": "ฺBangkok, Thailand",
-    # "latitude": 35.65910807942215,
-    # "longitude": 139.70372892916203
-    # }     
-    # }]
-    data = json.dumps({
-        "replyToken":replyToken,
-        "messages":msgs
-    })
+    # msgs = []
+    # for text in textList:
+    #     msgs.append({
+    #         "type":"text",
+    #         "text":text
+    #     })
+    data={
+    "replyToken":replyToken,
+    "messages":[{
+    "type": "location",
+    "title": "my location",
+    "address": "ฺBangkok, Thailand",
+    "latitude": 35.65910807942215,
+    "longitude": 139.70372892916203
+    }]     
+    }
+    # data = json.dumps({
+    #     "replyToken":replyToken,
+    #     "messages":msgs
+    # })
 
     requests.post(LINE_API, headers=headers, data=data)
     return
