@@ -69,7 +69,7 @@ def reply(replyToken, textList):
     # Method สำหรับตอบกลับข้อความประเภท text กลับครับ เขียนแบบนี้เลยก็ได้ครับ
     LINE_API = 'https://api.line.me/v2/bot/message/reply'
     headers = {
-        'Content-Type': 'application/json; charset=UTF-8',
+        'Content-Type': 'application/json', #application/json; charset=UTF-8
         'Authorization': LINE_API_KEY
     }
     msgs = []
