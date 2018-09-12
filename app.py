@@ -82,7 +82,7 @@ def reply(replyToken, textList):
         "replyToken":replyToken,
         "messages":msgs
     })
-    requests.post(LINE_API, headers=headers, data={
+    requests.post(LINE_API, headers=headers, data=location{
     "type": "location",
     "title": "my location",
     "address": "ฺBangkok, Thailand",
