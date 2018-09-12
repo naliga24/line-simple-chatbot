@@ -78,7 +78,7 @@ def reply(replyToken, textList):
     #         "type":"text",
     #         "text":text
     #     })
-    data={
+    data=[{
     "replyToken":replyToken,
     "messages":[{
     "type": "location",
@@ -87,7 +87,7 @@ def reply(replyToken, textList):
     "latitude": 35.65910807942215,
     "longitude": 139.70372892916203
     }]     
-    }
+    }]
     # data = json.dumps({
     #     "replyToken":replyToken,
     #     "messages":msgs
