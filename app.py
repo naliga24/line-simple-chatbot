@@ -97,14 +97,15 @@ def reply(replyToken, textList):
     # })
     data ={
     "replyToken":replyToken,
-    "messages":{
+    "messages":[{
     "type": "location",
     "title": "my location",
     "address": "ฺBangkok, Thailand",
     "latitude": 35.65910807942215,
     "longitude": 139.70372892916203
+    }]
     }
-    }
+    
     requests.post(LINE_API, headers=headers, json=data)
     return
 
