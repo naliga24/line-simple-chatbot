@@ -85,7 +85,17 @@ def reply(replyToken, textList):
     "latitude": 35.65910807942215,
     "longitude": 139.70372892916203
     }
-    data = json.dumps({
+    # data = json.dumps({
+    # "replyToken":replyToken,
+    # "messages":{
+    # "type": "location",
+    # "title": "my location",
+    # "address": "ฺBangkok, Thailand",
+    # "latitude": 35.65910807942215,
+    # "longitude": 139.70372892916203
+    # }
+    # })
+    data ={
     "replyToken":replyToken,
     "messages":{
     "type": "location",
@@ -94,8 +104,7 @@ def reply(replyToken, textList):
     "latitude": 35.65910807942215,
     "longitude": 139.70372892916203
     }
-    })
-
+    }
     requests.post(LINE_API, headers=headers, json=data)
     return
 
