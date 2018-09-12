@@ -96,7 +96,7 @@ def reply(replyToken, textList):
     }
     })
 
-    requests.post(LINE_API, headers=headers, data=data)
+    requests.post(LINE_API, headers=headers, json=data)
     return
 
 if __name__ == '__main__':
