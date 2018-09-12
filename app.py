@@ -9,7 +9,7 @@ global LINE_API_KEY
 LINE_API_KEY = 'Bearer /mnxywYk+P8dLSFrPpEcZinPM5xmqGvzWGDLnOLhcmz3Iv4ymldO/P75wa3yPZCv2y4MNEMa/m9kHbaTHtKyxNJsoXIhWinqT8l94ePO7vflwsGHPiF0VzH8OSSL/4DRNH4zNVYWuvGDHAjyqPBuewdB04t89/1O/w1cDnyilFU='
 
 app = Flask(__name__)
- 
+app.config['TESTING'] = True 
 @app.route('/')
 def index():
     return 'This is chatbot server!.'
@@ -57,7 +57,7 @@ def bot():
     # replyQueue.append(reponse_dict[closest])
    
     # ตอบข้อความ "นี่คือรูปแบบข้อความที่รับส่ง" กลับไป
-    replyQueue.append('นี่คือรูปแบบข้อความที่รับส่ง')
+    replyQueue.append('นี่คือรูปแบบข้อความที่รับส่งครับ')
     
     # ทดลอง Echo ข้อความกลับไปในรูปแบบที่ส่งไปมา (แบบ json)
     replyQueue.append(msg_in_string)
@@ -82,7 +82,13 @@ def reply(replyToken, textList):
         "replyToken":replyToken,
         "messages":msgs
     })
-    requests.post(LINE_API, headers=headers, data=data)
+    requests.post(LINE_API, headers=headers, data={
+    "type": "location",
+    "title": "my location",
+    "address": "ฺBangkok, Thailand",
+    "latitude": 35.65910807942215,
+    "longitude": 139.70372892916203
+    })
     return
 
 if __name__ == '__main__':
