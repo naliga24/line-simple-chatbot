@@ -78,20 +78,17 @@ def reply(replyToken, textList):
     #         "type":"text",
     #         "text":text
     #     })
-    data={
-    "to":"bq0tvFjFgxQN6IL2VIoozuRLoPRhQhEDC4omvN5Ui10",
-    "messages":[{
+    msgs={
     "type": "location",
     "title": "my location",
     "address": "ฺBangkok, Thailand",
     "latitude": 35.65910807942215,
     "longitude": 139.70372892916203
-    }]     
     }
-    # data = json.dumps({
-    #     "replyToken":replyToken,
-    #     "messages":msgs
-    # })
+    data = json.dumps({
+        "replyToken":replyToken,
+        "messages":msgs
+    })
 
     requests.post(LINE_API, headers=headers, data=data)
     return
