@@ -69,7 +69,7 @@ def reply(replyToken, textList):
     # Method สำหรับตอบกลับข้อความประเภท text กลับครับ เขียนแบบนี้เลยก็ได้ครับ
     LINE_API = 'https://api.line.me/v2/bot/message/reply'
     headers = {
-        'Content-Type': 'application/json', #application/json; charset=UTF-8
+        'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': LINE_API_KEY
     }
     msgs = []
@@ -78,17 +78,19 @@ def reply(replyToken, textList):
             "type":"text",
             "text":text
         })
-    data = json.dumps({
-        "replyToken":replyToken,
-        "messages":msgs
-    })
-    requests.post(LINE_API, headers=headers, data={
+    msgs={
     "type": "location",
     "title": "my location",
     "address": "ฺBangkok, Thailand",
     "latitude": 35.65910807942215,
     "longitude": 139.70372892916203
+    }
+    data = json.dumps({
+        "replyToken":replyToken,
+        "messages":msgs
     })
+
+    requests.post(LINE_API, headers=headers, data=data)
     return
 
 if __name__ == '__main__':
