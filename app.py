@@ -74,7 +74,7 @@ def reply(replyToken, textList):
     }
 
     data ={
-    "replyToken":'634685ad3a2fbe306e9eaa7b91e15c2d', #replyToken
+    "replyToken":replyToken,
     "messages":[{
     "type": "location",
     "title": "my location",
