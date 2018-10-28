@@ -44,7 +44,7 @@ def bot():
     # lower เพื่อให้เป็นตัวพิมพ์เล็ก strip เพื่อนำช่องว่างหัวท้ายออก ครับ
     text = msg_in_json["events"][0]['message']['text'].lower().strip()
     text = text.split()
-    print(database.select_class_attendace_info(text[0],text[1]))
+    print(database.select_class_attendace_info(text[0], text[1]))
 
     # ตัวอย่างการทำให้ bot ถาม-ตอบได้ แบบ exact match
     # response_dict = {'สวัสดี':'สวัสดีครับ'}
@@ -62,10 +62,10 @@ def bot():
     # replyQueue.append(reponse_dict[closest])
 
     # ตอบข้อความ "นี่คือรูปแบบข้อความที่รับส่ง" กลับไป
-    replyQueue.append('นี่คือรูปแบบข้อความที่รับส่งครับ')
+    # replyQueue.append('นี่คือรูปแบบข้อความที่รับส่งครับ')
 
     # ทดลอง Echo ข้อความกลับไปในรูปแบบที่ส่งไปมา (แบบ json)
-    replyQueue.append(msg_in_string)
+    replyQueue.append(database.select_class_attendace_info(text[0], text[1]))
     reply(replyToken, replyQueue[:5])
 
     return 'OK', 200
@@ -82,11 +82,10 @@ def reply(replyToken, textList):
     data = {
         "replyToken": replyToken,
         "messages": [{
-            "type": "location",
-            "title": "my location",
-            "address": "ฺBangkok, Thailand",
-            "latitude": 35.65910807942215,
-            "longitude": 139.70372892916203
+            {
+                "type": "text",
+                "text": "Hello, world"
+            }
         }]
     }
 
