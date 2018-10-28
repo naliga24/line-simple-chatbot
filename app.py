@@ -84,7 +84,7 @@ def reply(replyToken, textList):
         "messages": [{
             {
                 "type": "text",
-                "text": "Hello, world"
+                "text": textList
             }
         }]
     }
