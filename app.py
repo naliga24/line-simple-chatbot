@@ -65,7 +65,7 @@ def bot():
     # replyQueue.append('นี่คือรูปแบบข้อความที่รับส่งครับ')
 
     # ทดลอง Echo ข้อความกลับไปในรูปแบบที่ส่งไปมา (แบบ json)
-    replyQueue.append(database.select_class_attendace_info(text[0], text[1]))
+    replyQueue.append('database.select_class_attendace_info(text[0], text[1])')
     reply(replyToken, replyQueue[:5])
 
     return 'OK', 200
