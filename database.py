@@ -10,7 +10,7 @@ import mysql.connector
 # import io
 
 
-def select_class_attendace_info(studentId, subjectName):
+def select_class_attendace_info(subjectName, studentId):
     mydb = mysql.connector.connect(
         host="us-cdbr-iron-east-01.cleardb.net",
         user="b2742dd9273833",
@@ -18,7 +18,7 @@ def select_class_attendace_info(studentId, subjectName):
         database="heroku_766db354cb15187",
     )
     cursor = mydb.cursor()
-    
+
     sql = "SELECT DATE_FORMAT( class_attendance_date,'%Y-%m-%d' ) , TIME_FORMAT( class_attendance_time,'%h:%m:%s' )"
     sql += " FROM class_attendance_info"
     sql += " WHERE student_id = '"+studentId+"'"
