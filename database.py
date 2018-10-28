@@ -31,8 +31,8 @@ def select_class_attendace_info(studentId, subjectName):
     txt = ''
     for row in result:
         txt += row[0]+' , '+row[1]+'\n'
-
     print(txt)
+    return txt
     mydb.close()
 
 

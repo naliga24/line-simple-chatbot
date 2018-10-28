@@ -44,7 +44,7 @@ def bot():
     # lower เพื่อให้เป็นตัวพิมพ์เล็ก strip เพื่อนำช่องว่างหัวท้ายออก ครับ
     text = msg_in_json["events"][0]['message']['text'].lower().strip()
     text = text.split()
-    database.select_class_attendace_info(text[0],text[1])
+    print(database.select_class_attendace_info(text[0],text[1]))
 
     # ตัวอย่างการทำให้ bot ถาม-ตอบได้ แบบ exact match
     # response_dict = {'สวัสดี':'สวัสดีครับ'}
