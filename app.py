@@ -78,18 +78,18 @@ def reply(replyToken, textList):
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': LINE_API_KEY
     }
-
-    data = {
-        "replyToken": replyToken,
-        "messages": [
-           {
-               "type": "text",
-               "text": textList
-           }
-        ]
-    }
-
-    x = requests.post(LINE_API, headers=headers, data=json.dumps(data))
+    print(textList)
+    msgs = []
+    for text in textList:
+        msgs.append({
+            "type":"text",
+            "text":text
+        })
+    data = json.dumps({
+        "replyToken":replyToken,
+        "messages":msgs
+    })
+    x = requests.post(LINE_API, headers=headers, data=data)
     print(x)
     return
 
