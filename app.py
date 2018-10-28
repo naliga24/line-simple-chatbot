@@ -81,12 +81,12 @@ def reply(replyToken, textList):
 
     data = {
         "replyToken": replyToken,
-        "messages": [{
+        "messages": [
             {
                 "type": "text",
                 "text": textList
             }
-        }]
+        ]
     }
 
     requests.post(LINE_API, headers=headers, data=json.dumps(data))
