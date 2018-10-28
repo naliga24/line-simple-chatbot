@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import mysql.connector
-import cv
-import sys
-from PIL import Image
-import base64
-#import cStringIO
-import PIL.Image
-import io
+# import cv
+# import sys
+# from PIL import Image
+# import base64
+# #import cStringIO
+# import PIL.Image
+# import io
 
 
 def select_class_attendace_info(studentId, subjectName):
