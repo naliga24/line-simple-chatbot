@@ -89,7 +89,8 @@ def reply(replyToken, textList):
         ]
     }
 
-    requests.post(LINE_API, headers=headers, data=json.dumps(data))
+    x = requests.post(LINE_API, headers=headers, data=json.dumps(data))
+    print(x)
     return
 
 
