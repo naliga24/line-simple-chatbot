@@ -47,7 +47,7 @@ def select_class_attendace_info(subjectName, studentId):
     cursor.execute(sql)
     result = cursor.fetchall()
     for row in result:
-        txt += row[0]+' , '+row[1]+'\n'
+        txt += row[0]+'  '+row[1]+',\n'
     print('g'+txt)
     mydb.close()
     return txt
