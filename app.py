@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
 from flask import Flask, request
 import json
 import requests
@@ -95,4 +96,5 @@ def reply(replyToken, textList):
 
 
 if __name__ == '__main__':
-    app.run()
+    context = ('C:/Users/nalig/Dropbox/Apps/Heroku/line-simple-chatbot/localhost.local.crt', 'C:/Users/nalig/Dropbox/Apps/Heroku/line-simple-chatbot/localhost.local.key')
+    app.run(host='127.0.0.1', port=5000, ssl_context=context, threaded=True, debug=True)
