@@ -48,7 +48,7 @@ def bot():
     print(text)
     if(len(text) != 3):
         replyQueue.append('กรอกข้อความในรูปแบบ <subject_code_name> <semester_name> <student_code_name> เช่น cos1101 2/62 6005004780')
-        reply(replyToken, replyQueue[0])
+        reply(replyToken, replyQueue[:5])
         return 'OK', 200
 
 
