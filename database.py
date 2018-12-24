@@ -39,16 +39,17 @@ def select_class_attendace_info(subjectCodeName, semesterName,studentCodeName):
         txt += u'\nนักศึกษา '+row[0]+' '+row[1]+'\n'
     #print('g'+txt)
 
-    sql = "SELECT DATE_FORMAT( CLASS_ATTENDANCE_DATE,'%Y-%m-%d' ) , CLASS_ATTENDANCE_TIME"
-    sql += " FROM class_attendance_info"
-    sql += " WHERE STUDENT_NO = (SELECT STUDENT_NO FROM student_info WHERE STUDENT_CODE_NAME = '"+studentCodeName+"')"
-    sql += " AND SUBJECT_NO = (SELECT SUBJECT_NO FROM subject_info WHERE SUBJECT_CODE_NAME = '"+subjectCodeName+"')"
-    sql += " AND SEMESTER_NO = (SELECT SEMESTER_NO from semester_info WHERE SEMESTER_NAME = '"+semesterName+"')"
-    sql += " ORDER BY CLASS_ATTENDANCE_DATE ASC , CLASS_ATTENDANCE_TIME ASC"
+    sql = "SELECT DATE_FORMAT( a.CLASS_ATTENDANCE_DATE,'%Y-%m-%d' ) , a.CLASS_ATTENDANCE_TIME , b.CONFIRM_STATUS_DESCRIPTION"
+    sql += " FROM class_attendance_info a , confirm_status_info b"
+    sql += " WHERE a.CONFIRM_STATUS_NO = b.CONFIRM_STATUS_NO"
+    sql += " AND a.STUDENT_NO = (SELECT STUDENT_NO FROM student_info WHERE STUDENT_CODE_NAME = '"+studentCodeName+"')"
+    sql += " AND a.SUBJECT_NO = (SELECT SUBJECT_NO FROM subject_info WHERE SUBJECT_CODE_NAME = '"+subjectCodeName+"')"
+    sql += " AND a.SEMESTER_NO = (SELECT SEMESTER_NO from semester_info WHERE SEMESTER_NAME = '"+semesterName+"')"
+    sql += " ORDER BY a.CLASS_ATTENDANCE_DATE ASC , a.CLASS_ATTENDANCE_TIME ASC"
     cursor.execute(sql)
     result = cursor.fetchall()
     for row in result:
-        txt += row[0]+'  '+str(row[1])+',\n'
+        txt += row[0]+'  '+str(row[1])+' ('+row[2]+'),\n'
     print('g'+txt)
     mydb.close()
     return txt
