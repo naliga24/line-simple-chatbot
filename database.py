@@ -10,7 +10,7 @@ import mysql.connector
 # import io
 
 
-def select_class_attendace_info(subjectName, studentId):
+def select_class_attendace_info(subjectCodeName, studentCodeName):
     mydb = mysql.connector.connect(
         host="us-cdbr-iron-east-01.cleardb.net",
         user="b2742dd9273833",
@@ -19,29 +19,29 @@ def select_class_attendace_info(subjectName, studentId):
     )
     cursor = mydb.cursor()
     txt = ''
-    sql = "SELECT a.teacher_first_name , a.teacher_last_name"
+    sql = "SELECT a.TEACHER_FIRST_NAME , a.TEACHER_LAST_NAME"
     sql += " FROM teacher_info a , subject_info b"
-    sql += " WHERE a.teacher_id = b.teacher_id"
-    sql += " AND b.subject_name = '"+subjectName+"'"
+    sql += " WHERE a.TEACHER_NO = b.TEACHER_NO"
+    sql += " AND b.SUBJECT_CODE_NAME = '"+subjectCodeName+"'"
     cursor.execute(sql)
     result = cursor.fetchall()
     for row in result:
         txt += u'อาจารย์ '+row[0]+' '+row[1]+'\n'
     print('g'+txt)
 
-    sql = "SELECT student_first_name , student_last_name"
+    sql = "SELECT STUDENT_CODE_NAME , STUDENT_LAST_NAME"
     sql += " FROM student_info"
-    sql += " WHERE student_id = '"+studentId+"'"
+    sql += " WHERE STUDENT_CODE_NAME = '"+studentCodeName+"'"
     cursor.execute(sql)
     result = cursor.fetchall()
     for row in result:
         txt += row[0]+' '+row[1]+'\n'
     print('g'+txt)
 
-    sql = "SELECT DATE_FORMAT( class_attendance_date,'%Y-%m-%d' ) , TIME_FORMAT( class_attendance_time,'%h:%m:%s' )"
+    sql = "SELECT DATE_FORMAT( CLASS_ATTENDANCE_DATE,'%Y-%m-%d' ) , CLASS_ATTENDANCE_TIME"
     sql += " FROM class_attendance_info"
-    sql += " WHERE student_id = '"+studentId+"'"
-    sql += " AND subject_id = (SELECT subject_id FROM subject_info WHERE subject_name = '"+subjectName+"')"
+    sql += " WHERE STUDENT_NO = (SELECT STUDENT_NO FROM student_info WHERE STUDENT_CODE_NAME = '"+studentCodeName+"')"
+    sql += " AND SUBJECT_NO = (SELECT SUBJECT_NO FROM subject_info WHERE SUBJECT_CODE_NAME = '"+subjectCodeName+"')"
     sql += " AND (SELECT semester_id FROM semester_info ORDER BY semester_id DESC LIMIT 1)"
     sql += " ORDER BY class_attendance_date ASC , class_attendance_time ASC"
     cursor.execute(sql)

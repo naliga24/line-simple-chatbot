@@ -11,7 +11,7 @@ global LINE_API_KEY
 LINE_API_KEY = 'Bearer /mnxywYk+P8dLSFrPpEcZinPM5xmqGvzWGDLnOLhcmz3Iv4ymldO/P75wa3yPZCv2y4MNEMa/m9kHbaTHtKyxNJsoXIhWinqT8l94ePO7vflwsGHPiF0VzH8OSSL/4DRNH4zNVYWuvGDHAjyqPBuewdB04t89/1O/w1cDnyilFU='
 
 app = Flask(__name__)
-app.config['TESTING'] = True
+#app.config['TESTING'] = True
 
 
 @app.route('/')
@@ -96,5 +96,7 @@ def reply(replyToken, textList):
 
 
 if __name__ == '__main__':
-    context = ('C:/Users/nalig/Dropbox/Apps/Heroku/line-simple-chatbot/localhost.local.crt', 'C:/Users/nalig/Dropbox/Apps/Heroku/line-simple-chatbot/localhost.local.key')
-    app.run(host='127.0.0.1', port=5000, ssl_context=context, threaded=True, debug=True)
+    #context = ('C:/xampp/apache/conf/ssl.crt', 'C:/xampp/apache/conf/ssl.key')
+    #app.run(host='127.0.0.1', port=5000, ssl_context=context, threaded=True, debug=True)
+    #app.run(host='localhost', port=8080, ssl_context=context, threaded=True, debug=True)
+    app.run()
