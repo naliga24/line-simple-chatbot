@@ -46,6 +46,11 @@ def bot():
     text = msg_in_json["events"][0]['message']['text'].lower().strip()
     text = text.split()
     print(text)
+    if(len(text) != 3):
+        replyQueue.append('กรอกข้อความในรูปแบบ <subject_code_name> <semester_name> <student_code_name> เช่น cos1101 2/62 6005004780')
+        reply(replyToken, replyQueue[0])
+        return 'OK', 200
+
 
     # ตัวอย่างการทำให้ bot ถาม-ตอบได้ แบบ exact match
     # response_dict = {'สวัสดี':'สวัสดีครับ'}
