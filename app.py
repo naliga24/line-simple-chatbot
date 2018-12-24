@@ -47,7 +47,7 @@ def bot():
     text = text.split()
     print(text)
     if(len(text) != 3):
-        replyQueue.append('กรอกข้อความในรูปแบบ <subject_code_name> <semester_name> <student_code_name> เช่น cos1101 2/62 6005004780')
+        replyQueue.append('โปรดกรอกข้อความในรูปแบบ <subject_code_name> <semester_name> <student_code_name> \nเช่น cos1101 2/62 6005004780')
         reply(replyToken, replyQueue[:5])
         return 'OK', 200
 
