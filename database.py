@@ -10,7 +10,7 @@ import mysql.connector
 # import io
 
 
-def select_class_attendace_info(subjectCodeName, studentCodeName):
+def select_class_attendace_info(subjectCodeName, semesterName,studentCodeName):
     mydb = mysql.connector.connect(
         host="us-cdbr-iron-east-01.cleardb.net",
         user="b2742dd9273833",
@@ -18,7 +18,7 @@ def select_class_attendace_info(subjectCodeName, studentCodeName):
         database="heroku_766db354cb15187",
     )
     cursor = mydb.cursor()
-    txt = ''
+    txt = u'ชื่อวิชา '+subjectCodeName+u'\nภาค'+semesterName+'\n'
     sql = "SELECT a.TEACHER_FIRST_NAME , a.TEACHER_LAST_NAME"
     sql += " FROM teacher_info a , subject_info b"
     sql += " WHERE a.TEACHER_NO = b.TEACHER_NO"
@@ -27,31 +27,32 @@ def select_class_attendace_info(subjectCodeName, studentCodeName):
     result = cursor.fetchall()
     for row in result:
         txt += u'อาจารย์ '+row[0]+' '+row[1]+'\n'
-    print('g'+txt)
+    #print('g'+txt)
 
-    sql = "SELECT STUDENT_CODE_NAME , STUDENT_LAST_NAME"
+    sql = "SELECT STUDENT_FIRST_NAME , STUDENT_LAST_NAME"
     sql += " FROM student_info"
     sql += " WHERE STUDENT_CODE_NAME = '"+studentCodeName+"'"
     cursor.execute(sql)
     result = cursor.fetchall()
+    txt +=u'รหัส '+studentCodeName
     for row in result:
-        txt += row[0]+' '+row[1]+'\n'
-    print('g'+txt)
+        txt += u'\nนักศึกษา '+row[0]+' '+row[1]+'\n'
+    #print('g'+txt)
 
     sql = "SELECT DATE_FORMAT( CLASS_ATTENDANCE_DATE,'%Y-%m-%d' ) , CLASS_ATTENDANCE_TIME"
     sql += " FROM class_attendance_info"
     sql += " WHERE STUDENT_NO = (SELECT STUDENT_NO FROM student_info WHERE STUDENT_CODE_NAME = '"+studentCodeName+"')"
     sql += " AND SUBJECT_NO = (SELECT SUBJECT_NO FROM subject_info WHERE SUBJECT_CODE_NAME = '"+subjectCodeName+"')"
-    sql += " AND (SELECT semester_id FROM semester_info ORDER BY semester_id DESC LIMIT 1)"
-    sql += " ORDER BY class_attendance_date ASC , class_attendance_time ASC"
+    sql += " AND SEMESTER_NO = (SELECT SEMESTER_NO from semester_info WHERE SEMESTER_NAME = '"+semesterName+"')"
+    sql += " ORDER BY CLASS_ATTENDANCE_DATE ASC , CLASS_ATTENDANCE_TIME ASC"
     cursor.execute(sql)
     result = cursor.fetchall()
     for row in result:
-        txt += row[0]+'  '+row[1]+',\n'
+        txt += row[0]+'  '+str(row[1])+',\n'
     print('g'+txt)
     mydb.close()
     return txt
 
 
 if __name__ == "__main__":
-    select_class_attendace_info('cos1103','6005004780')
+    select_class_attendace_info('cos1102','2/67','6005004783')
