@@ -9,14 +9,16 @@ import mysql.connector
 # import PIL.Image
 # import io
 
-
-def select_class_attendace_info(subjectCodeName, semesterName,studentCodeName):
-    mydb = mysql.connector.connect(
+def dbConfig():
+    return mysql.connector.connect(
         host="us-cdbr-iron-east-01.cleardb.net",
         user="b2742dd9273833",
         passwd="99f7887d5ff6a81",
         database="heroku_766db354cb15187",
     )
+
+def select_class_attendace_info(subjectCodeName, semesterName,studentCodeName):
+    mydb = dbConfig()
     cursor = mydb.cursor()
     txt = u'ชื่อวิชา '+subjectCodeName+u'\nภาค'+semesterName+'\n'
     sql = "SELECT a.TEACHER_FIRST_NAME , a.TEACHER_LAST_NAME"
@@ -54,6 +56,53 @@ def select_class_attendace_info(subjectCodeName, semesterName,studentCodeName):
     mydb.close()
     return txt
 
+def select_subject_info():
+    mydb = dbConfig()
+    cursor = mydb.cursor()
+    sql = "SELECT a.SUBJECT_CODE_NAME , a.SUBJECT_NAME , a.SUBJECT_DESCRIPTION , b.USE_STATUS_DESCRIPTION , c.TEACHER_FIRST_NAME , c.TEACHER_LAST_NAME"
+    sql += " FROM subject_info a , use_status_info b , teacher_info c"
+    sql += " WHERE a.SUBJECT_STATUS = b.USE_STATUS_NO"
+    sql += " AND a.TEACHER_NO = c.TEACHER_NO"
+    sql += " ORDER BY SUBJECT_CODE_NAME ASC"
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    txt = ''
+    for row in result:
+        txt += row[0]+' '+row[1]+' '+row[2]+' ('+row[3]+') '+row[4]+' '+row[5]+',\n'
+    mydb.close()
+    print(txt)
+    return txt
+
+def select_semester_info():
+    mydb = dbConfig()
+    cursor = mydb.cursor()
+    sql = "SELECT SUBJECT_CODE_NAME , SUBJECT_NAME , SUBJECT_DESCRIPTION"
+    sql += " FROM subject_info"
+    sql += " ORDER BY SUBJECT_CODE_NAME ASC"
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    txt = ''
+    for row in result:
+        txt += row[0]+' '+row[1]+' '+row[2]+'\n'
+    mydb.close()
+    print(txt)
+    return txt
+
+def select_teacher_info():
+    mydb = dbConfig()
+    cursor = mydb.cursor()
+    sql = "SELECT SUBJECT_CODE_NAME , SUBJECT_NAME , SUBJECT_DESCRIPTION"
+    sql += " FROM subject_info"
+    sql += " ORDER BY SUBJECT_CODE_NAME ASC"
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    txt = ''
+    for row in result:
+        txt += row[0]+' '+row[1]+' '+row[2]+'\n'
+    mydb.close()
+    print(txt)
+    return txt
 
 if __name__ == "__main__":
-    select_class_attendace_info('cos1102','2/67','6005004783')
+    #select_class_attendace_info('cos1102','2/67','6005004783')
+    select_subject_info()
