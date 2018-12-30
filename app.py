@@ -54,13 +54,21 @@ def bot():
         reply(replyToken, replyQueue[:5])
         return 'OK', 200
 
-
     if(len(text)==1):
-        if(text[0]=='subject'):
+        if(text[0]=='วิชา'):
             replyQueue.append(subject.select_subject_info())
             reply(replyToken, replyQueue[:5])
             return 'OK', 200
 
+        if(text[0]=='ภาค'):
+            replyQueue.append(semester.select_semester_info())
+            reply(replyToken, replyQueue[:5])
+            return 'OK', 200
+        
+        if(text[0]=='อาจารย์' or text[0]=='อาจารย' or text[0]=='อาจาร' or text[0]=='อาจาน' or text[0]=='ครู' or text[0]=='ผู้สอน'):
+            replyQueue.append(teacher.select_teacher_info())
+            reply(replyToken, replyQueue[:5])
+            return 'OK', 200
     # ตัวอย่างการทำให้ bot ถาม-ตอบได้ แบบ exact match
     # response_dict = {'สวัสดี':'สวัสดีครับ'}
     # if text in response_dict:
@@ -80,10 +88,10 @@ def bot():
     # replyQueue.append('นี่คือรูปแบบข้อความที่รับส่งครับ')
 
     # ทดลอง Echo ข้อความกลับไปในรูปแบบที่ส่งไปมา (แบบ json)
-    replyQueue.append(classsAttendance.select_class_attendace_info(text[0], text[1], text[2]))
-    reply(replyToken, replyQueue[:5])
-
-    return 'OK', 200
+    if(len(text)==3):
+        replyQueue.append(classAttendance.select_class_attendace_info(text[0], text[1], text[2]))
+        reply(replyToken, replyQueue[:5])
+        return 'OK', 200
 
 
 def reply(replyToken, textList):
