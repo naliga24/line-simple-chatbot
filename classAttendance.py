@@ -76,14 +76,15 @@ def select_subject_info():
 def select_semester_info():
     mydb = dbConfig()
     cursor = mydb.cursor()
-    sql = "SELECT SUBJECT_CODE_NAME , SUBJECT_NAME , SUBJECT_DESCRIPTION"
-    sql += " FROM subject_info"
-    sql += " ORDER BY SUBJECT_CODE_NAME ASC"
+    sql = "SELECT a.SEMESTER_NAME , b.SEMESTER_STATUS_DESCRIPTION"
+    sql += " FROM semester_info a, semester_status_info b"
+    sql += " WHERE a.SEMESTER_STATUS_NO = b.SEMESTER_STATUS_NO"
+    sql += " ORDER BY a.SEMESTER_NO DESC"
     cursor.execute(sql)
     result = cursor.fetchall()
     txt = ''
     for row in result:
-        txt += row[0]+' '+row[1]+' '+row[2]+'\n'
+        txt += row[0]+' ('+row[1]+'),\n'
     mydb.close()
     print(txt)
     return txt
@@ -91,18 +92,19 @@ def select_semester_info():
 def select_teacher_info():
     mydb = dbConfig()
     cursor = mydb.cursor()
-    sql = "SELECT SUBJECT_CODE_NAME , SUBJECT_NAME , SUBJECT_DESCRIPTION"
-    sql += " FROM subject_info"
-    sql += " ORDER BY SUBJECT_CODE_NAME ASC"
+    sql = "SELECT a.TEACHER_FIRST_NAME , a.TEACHER_LAST_NAME , a.TEACHER_CLASS_COUNT , b.USE_STATUS_DESCRIPTION"
+    sql += " FROM teacher_info a, use_status_info b"
+    sql += " WHERE a.TEACHER_STATUS = b.USE_STATUS_NO"
+    sql += " ORDER BY a.TEACHER_FIRST_NAME ASC , a.TEACHER_LAST_NAME ASC"
     cursor.execute(sql)
     result = cursor.fetchall()
     txt = ''
     for row in result:
-        txt += row[0]+' '+row[1]+' '+row[2]+'\n'
+        txt += row[0]+' '+row[1]+u' (สอน '+str(row[2])+u' วิชา) '+row[3]+u',\n'
     mydb.close()
-    print(txt)
+    print('g'+txt)
     return txt
 
 if __name__ == "__main__":
     #select_class_attendace_info('cos1102','2/67','6005004783')
-    select_subject_info()
+    select_teacher_info()

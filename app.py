@@ -4,7 +4,10 @@
 from flask import Flask, request
 import json
 import requests
-import database
+import classsAttendance
+import subject
+import semester
+import teacher
 # ตรง YOURSECRETKEY ต้องนำมาใส่เองครับจะกล่าวถึงในขั้นตอนต่อๆ ไป
 global LINE_API_KEY
 # ห้ามลบคำว่า Bearer ออกนะครับเมื่อนำ access token มาใส่
@@ -46,11 +49,17 @@ def bot():
     text = msg_in_json["events"][0]['message']['text'].lower().strip()
     text = text.split()
     print(text)
-    if(len(text) != 3):
+    if(len(text) > 3 or len(text) == 2 ):
         replyQueue.append('โปรดกรอกข้อความในรูปแบบ <subject_code_name> <semester_name> <student_code_name> \nเช่น cos1101 2/62 6005004780')
         reply(replyToken, replyQueue[:5])
         return 'OK', 200
 
+
+    if(len(text)==1):
+        if(text[0]=='subject'):
+            replyQueue.append(subject.select_subject_info())
+            reply(replyToken, replyQueue[:5])
+            return 'OK', 200
 
     # ตัวอย่างการทำให้ bot ถาม-ตอบได้ แบบ exact match
     # response_dict = {'สวัสดี':'สวัสดีครับ'}
@@ -71,7 +80,7 @@ def bot():
     # replyQueue.append('นี่คือรูปแบบข้อความที่รับส่งครับ')
 
     # ทดลอง Echo ข้อความกลับไปในรูปแบบที่ส่งไปมา (แบบ json)
-    replyQueue.append(database.select_class_attendace_info(text[0], text[1], text[2]))
+    replyQueue.append(classsAttendance.select_class_attendace_info(text[0], text[1], text[2]))
     reply(replyToken, replyQueue[:5])
 
     return 'OK', 200
