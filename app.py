@@ -55,17 +55,17 @@ def bot():
         return 'OK', 200
 
     if(len(text)==1):
-        if(text[0]=='วิชา'):
+        if(text[0]=='วิชา' or text[0]=='วิชาเปิดสอน' or text[0]=='วิชาสอน' or text[0]=='subject'):
             replyQueue.append(subject.select_subject_info())
             reply(replyToken, replyQueue[:5])
             return 'OK', 200
 
-        if(text[0]=='ภาค'):
+        if(text[0]=='ภาค' or text[0]=='ภาคการศึกษา' or text[0]=='semester'):
             replyQueue.append(semester.select_semester_info())
             reply(replyToken, replyQueue[:5])
             return 'OK', 200
         
-        if(text[0]=='อาจารย์' or text[0]=='อาจารย' or text[0]=='อาจาร' or text[0]=='อาจาน' or text[0]=='ครู' or text[0]=='ผู้สอน'):
+        if(text[0]=='อาจารย์' or text[0]=='teacher' or text[0]=='อาจารย' or text[0]=='อาจาร' or text[0]=='อาจาน' or text[0]=='ครู' or text[0]=='ผู้สอน'):
             replyQueue.append(teacher.select_teacher_info())
             reply(replyToken, replyQueue[:5])
             return 'OK', 200
