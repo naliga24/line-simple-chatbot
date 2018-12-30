@@ -56,55 +56,5 @@ def select_class_attendace_info(subjectCodeName, semesterName,studentCodeName):
     mydb.close()
     return txt
 
-def select_subject_info():
-    mydb = dbConfig()
-    cursor = mydb.cursor()
-    sql = "SELECT a.SUBJECT_CODE_NAME , a.SUBJECT_NAME , a.SUBJECT_DESCRIPTION , b.USE_STATUS_DESCRIPTION , c.TEACHER_FIRST_NAME , c.TEACHER_LAST_NAME"
-    sql += " FROM subject_info a , use_status_info b , teacher_info c"
-    sql += " WHERE a.SUBJECT_STATUS = b.USE_STATUS_NO"
-    sql += " AND a.TEACHER_NO = c.TEACHER_NO"
-    sql += " ORDER BY SUBJECT_CODE_NAME ASC"
-    cursor.execute(sql)
-    result = cursor.fetchall()
-    txt = ''
-    for row in result:
-        txt += row[0]+' '+row[1]+' '+row[2]+' ('+row[3]+') '+row[4]+' '+row[5]+',\n'
-    mydb.close()
-    print(txt)
-    return txt
-
-def select_semester_info():
-    mydb = dbConfig()
-    cursor = mydb.cursor()
-    sql = "SELECT a.SEMESTER_NAME , b.SEMESTER_STATUS_DESCRIPTION"
-    sql += " FROM semester_info a, semester_status_info b"
-    sql += " WHERE a.SEMESTER_STATUS_NO = b.SEMESTER_STATUS_NO"
-    sql += " ORDER BY a.SEMESTER_NO DESC"
-    cursor.execute(sql)
-    result = cursor.fetchall()
-    txt = ''
-    for row in result:
-        txt += row[0]+' ('+row[1]+'),\n'
-    mydb.close()
-    print(txt)
-    return txt
-
-def select_teacher_info():
-    mydb = dbConfig()
-    cursor = mydb.cursor()
-    sql = "SELECT a.TEACHER_FIRST_NAME , a.TEACHER_LAST_NAME , a.TEACHER_CLASS_COUNT , b.USE_STATUS_DESCRIPTION"
-    sql += " FROM teacher_info a, use_status_info b"
-    sql += " WHERE a.TEACHER_STATUS = b.USE_STATUS_NO"
-    sql += " ORDER BY a.TEACHER_FIRST_NAME ASC , a.TEACHER_LAST_NAME ASC"
-    cursor.execute(sql)
-    result = cursor.fetchall()
-    txt = ''
-    for row in result:
-        txt += row[0]+' '+row[1]+u' (สอน '+str(row[2])+u' วิชา) '+row[3]+u',\n'
-    mydb.close()
-    print('g'+txt)
-    return txt
-
 if __name__ == "__main__":
-    #select_class_attendace_info('cos1102','2/67','6005004783')
-    select_teacher_info()
+    select_class_attendace_info('cos1102','2/67','6005004783')
