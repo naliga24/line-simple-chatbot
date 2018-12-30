@@ -1,24 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import mysql.connector
-# import cv
-# import sys
-# from PIL import Image
-# import base64
-# #import cStringIO
-# import PIL.Image
-# import io
-
-def dbConfig():
-    return mysql.connector.connect(
-        host="us-cdbr-iron-east-01.cleardb.net",
-        user="b2742dd9273833",
-        passwd="99f7887d5ff6a81",
-        database="heroku_766db354cb15187",
-    )
+import dbConfig
 
 def select_class_attendace_info(subjectCodeName, semesterName,studentCodeName):
-    mydb = dbConfig()
+    mydb = dbConfig.config()
     cursor = mydb.cursor()
     txt = u'ชื่อวิชา '+subjectCodeName+u'\nภาค'+semesterName+'\n'
     sql = "SELECT a.TEACHER_FIRST_NAME , a.TEACHER_LAST_NAME"
