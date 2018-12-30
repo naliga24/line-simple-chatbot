@@ -4,7 +4,7 @@
 from flask import Flask, request
 import json
 import requests
-import classsAttendance
+import classAttendance
 import subject
 import semester
 import teacher
