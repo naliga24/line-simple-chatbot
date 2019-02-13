@@ -13,7 +13,7 @@ def select_student_info(studentCodeName):
     result = cursor.fetchall()
     txt = ''
     for row in result:
-        txt += row[0]+' '+row[1]+' , '+row[2]+' , '+row[3]+'\n'
+        txt += row[0]+' '+row[1]+' , '+row[2]+' '+row[3]+'\n'
     mydb.close()
     print('.'+txt)
     return txt
