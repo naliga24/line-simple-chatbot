@@ -73,7 +73,7 @@ def bot():
             return 'OK', 200
 
         if(len(text[0]) == 10 and text[0].isdigit()):
-            replyQueue.append(student.select_student_info())
+            replyQueue.append(student.select_student_info(text[0]))
             reply(replyToken, replyQueue[:5])
             return 'OK', 200
     # ตัวอย่างการทำให้ bot ถาม-ตอบได้ แบบ exact match
