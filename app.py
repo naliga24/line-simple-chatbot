@@ -8,6 +8,7 @@ import classAttendance
 import subject
 import semester
 import teacher
+import student
 # ตรง YOURSECRETKEY ต้องนำมาใส่เองครับจะกล่าวถึงในขั้นตอนต่อๆ ไป
 global LINE_API_KEY
 # ห้ามลบคำว่า Bearer ออกนะครับเมื่อนำ access token มาใส่
@@ -49,24 +50,30 @@ def bot():
     text = msg_in_json["events"][0]['message']['text'].lower().strip()
     text = text.split()
     print(text)
-    if(len(text) > 3 or len(text) == 2 ):
-        replyQueue.append('โปรดกรอกข้อความในรูปแบบ <subject_code_name> <semester_name> <student_code_name> \nเช่น cos1101 2/62 6005004780')
+    if(len(text) > 3 or len(text) == 2):
+        replyQueue.append(
+            'โปรดกรอกข้อความในรูปแบบ <subject_code_name> <semester_name> <student_code_name> \nเช่น cos1101 2/62 6005004780')
         reply(replyToken, replyQueue[:5])
         return 'OK', 200
 
-    if(len(text)==1):
-        if(text[0]=='วิชา' or text[0]=='วิชาเปิดสอน' or text[0]=='วิชาสอน' or text[0]=='subject'):
+    if(len(text) == 1):
+        if(text[0] == 'วิชา' or text[0] == 'วิชาเปิดสอน' or text[0] == 'วิชาสอน' or text[0] == 'subject'):
             replyQueue.append(subject.select_subject_info())
             reply(replyToken, replyQueue[:5])
             return 'OK', 200
 
-        if(text[0]=='ภาค' or text[0]=='ภาคการศึกษา' or text[0]=='semester'):
+        if(text[0] == 'ภาค' or text[0] == 'ภาคการศึกษา' or text[0] == 'semester'):
             replyQueue.append(semester.select_semester_info())
             reply(replyToken, replyQueue[:5])
             return 'OK', 200
-        
-        if(text[0]=='อาจารย์' or text[0]=='teacher' or text[0]=='อาจารย' or text[0]=='อาจาร' or text[0]=='อาจาน' or text[0]=='ครู' or text[0]=='ผู้สอน'):
+
+        if(text[0] == 'อาจารย์' or text[0] == 'teacher' or text[0] == 'อาจารย' or text[0] == 'อาจาร' or text[0] == 'อาจาน' or text[0] == 'ครู' or text[0] == 'ผู้สอน'):
             replyQueue.append(teacher.select_teacher_info())
+            reply(replyToken, replyQueue[:5])
+            return 'OK', 200
+
+        if(len(text[0]) == 10 and text[0].isdigit()):
+            replyQueue.append(student.select_student_info())
             reply(replyToken, replyQueue[:5])
             return 'OK', 200
     # ตัวอย่างการทำให้ bot ถาม-ตอบได้ แบบ exact match
@@ -88,8 +95,9 @@ def bot():
     # replyQueue.append('นี่คือรูปแบบข้อความที่รับส่งครับ')
 
     # ทดลอง Echo ข้อความกลับไปในรูปแบบที่ส่งไปมา (แบบ json)
-    if(len(text)==3):
-        replyQueue.append(classAttendance.select_class_attendace_info(text[0], text[1], text[2]))
+    if(len(text) == 3):
+        replyQueue.append(classAttendance.select_class_attendace_info(
+            text[0], text[1], text[2]))
         reply(replyToken, replyQueue[:5])
         return 'OK', 200
 
@@ -105,12 +113,12 @@ def reply(replyToken, textList):
     msgs = []
     for text in textList:
         msgs.append({
-            "type":"text",
-            "text":text
+            "type": "text",
+            "text": text
         })
     data = json.dumps({
-        "replyToken":replyToken,
-        "messages":msgs
+        "replyToken": replyToken,
+        "messages": msgs
     })
     x = requests.post(LINE_API, headers=headers, data=data)
     print(x)
