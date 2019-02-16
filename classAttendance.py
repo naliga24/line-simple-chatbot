@@ -26,7 +26,7 @@ def select_class_attendace_info(subjectCodeName, semesterName,studentCodeName):
         txt += u'\nนักศึกษา '+row[0]+' '+row[1]+'\n'
     #print('g'+txt)
 
-    sql = "SELECT DATE_FORMAT( a.CLASS_ATTENDANCE_DATE,'%Y-%m-%d' ) , a.CLASS_ATTENDANCE_TIME , b.CONFIRM_STATUS_DESCRIPTION"
+    sql = "SELECT DATE_FORMAT( a.CLASS_ATTENDANCE_DATE,'%Y-%m-%d' ) , a.CLASS_ATTENDANCE_TIME , b.CONFIRM_STATUS_DESCRIPTION , a.CLASS_ATTENDANCE_IMAGE"
     sql += " FROM class_attendance_info a , confirm_status_info b"
     sql += " WHERE a.CONFIRM_STATUS_NO = b.CONFIRM_STATUS_NO"
     sql += " AND a.STUDENT_NO = (SELECT STUDENT_NO FROM student_info WHERE STUDENT_CODE_NAME = '"+studentCodeName+"')"
@@ -36,7 +36,7 @@ def select_class_attendace_info(subjectCodeName, semesterName,studentCodeName):
     cursor.execute(sql)
     result = cursor.fetchall()
     for row in result:
-        txt += row[0]+'  '+str(row[1])+' ('+row[2]+'),\n'
+        txt += row[0]+'  '+str(row[1])+' ('+row[2]+')'+' '+row[3]+' ,\n'
     print('g'+txt)
     mydb.close()
     return txt
