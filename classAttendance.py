@@ -33,6 +33,7 @@ def select_class_attendace_info(subjectCodeName, semesterName,studentCodeName):
     sql += " AND a.SUBJECT_NO = (SELECT SUBJECT_NO FROM subject_info WHERE SUBJECT_CODE_NAME = '"+subjectCodeName+"')"
     sql += " AND a.SEMESTER_NO = (SELECT SEMESTER_NO from semester_info WHERE SEMESTER_NAME = '"+semesterName+"')"
     sql += " ORDER BY a.CLASS_ATTENDANCE_DATE ASC , a.CLASS_ATTENDANCE_TIME ASC"
+    print(sql)
     cursor.execute(sql)
     result = cursor.fetchall()
     for row in result:
@@ -41,5 +42,36 @@ def select_class_attendace_info(subjectCodeName, semesterName,studentCodeName):
     mydb.close()
     return txt
 
+def select_class_attendace_info_all(subjectCodeName, semesterName):
+    mydb = dbConfig.config()
+    cursor = mydb.cursor()
+    txt = u'ชื่อวิชา '+subjectCodeName+u'\nภาค'+semesterName+'\n'
+    sql = "SELECT a.TEACHER_FIRST_NAME , a.TEACHER_LAST_NAME"
+    sql += " FROM teacher_info a , subject_info b"
+    sql += " WHERE a.TEACHER_NO = b.TEACHER_NO"
+    sql += " AND b.SUBJECT_CODE_NAME = '"+subjectCodeName+"'"
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    for row in result:
+        txt += u'อาจารย์ '+row[0]+' '+row[1]+'\n'
+    #print('g'+txt)
+
+    sql = "SELECT c.STUDENT_FIRST_NAME , c.STUDENT_LAST_NAME , DATE_FORMAT( a.CLASS_ATTENDANCE_DATE,'%Y-%m-%d' ),"
+    sql += " a.CLASS_ATTENDANCE_TIME , b.CONFIRM_STATUS_DESCRIPTION , a.CLASS_ATTENDANCE_IMAGE"
+    sql += " FROM class_attendance_info a , confirm_status_info b , student_info c"
+    sql += " WHERE a.CONFIRM_STATUS_NO = b.CONFIRM_STATUS_NO"
+    sql += " AND a.STUDENT_NO = c.STUDENT_NO"
+    sql += " AND a.SUBJECT_NO = (SELECT SUBJECT_NO FROM subject_info WHERE SUBJECT_CODE_NAME = '"+subjectCodeName+"')"
+    sql += " AND a.SEMESTER_NO = (SELECT SEMESTER_NO from semester_info WHERE SEMESTER_NAME = '"+semesterName+"')"
+    sql += " ORDER BY a.CLASS_ATTENDANCE_DATE ASC , a.CLASS_ATTENDANCE_TIME ASC"
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    for row in result:
+        txt += row[0]+' '+row[1]+' '+row[2]+'  '+str(row[3])+' ('+row[4]+') '+row[5]+' ,\n'
+    print('g'+txt)
+    mydb.close()
+    return txt
+
 if __name__ == "__main__":
-    select_class_attendace_info('cos1102','2/67','6005004783')
+    #select_class_attendace_info('cos1102','1/62','6005004780')
+    select_class_attendace_info_all('cos1102','1/62')

@@ -50,7 +50,7 @@ def bot():
     text = msg_in_json["events"][0]['message']['text'].lower().strip()
     text = text.split()
     print(text)
-    if(len(text) > 3 or len(text) == 2):
+    if(len(text) > 3):
         replyQueue.append(
             'โปรดกรอกข้อความในรูปแบบ <subject_code_name> <semester_name> <student_code_name> \nเช่น cos1101 2/62 6005004780')
         reply(replyToken, replyQueue[:5])
@@ -95,9 +95,13 @@ def bot():
     # replyQueue.append('นี่คือรูปแบบข้อความที่รับส่งครับ')
 
     # ทดลอง Echo ข้อความกลับไปในรูปแบบที่ส่งไปมา (แบบ json)
+    if(len(text) == 2):
+        replyQueue.append(classAttendance.select_class_attendace_info_all(text[0], text[1]))
+        reply(replyToken, replyQueue[:5])
+        return 'OK', 200
+
     if(len(text) == 3):
-        replyQueue.append(classAttendance.select_class_attendace_info(
-            text[0], text[1], text[2]))
+        replyQueue.append(classAttendance.select_class_attendace_info(text[0], text[1], text[2]))
         reply(replyToken, replyQueue[:5])
         return 'OK', 200
 
