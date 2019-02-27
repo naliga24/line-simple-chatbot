@@ -9,10 +9,7 @@ import subject
 import semester
 import teacher
 import student
-# ตรง YOURSECRETKEY ต้องนำมาใส่เองครับจะกล่าวถึงในขั้นตอนต่อๆ ไป
-global LINE_API_KEY
-# ห้ามลบคำว่า Bearer ออกนะครับเมื่อนำ access token มาใส่
-LINE_API_KEY = 'Bearer /mnxywYk+P8dLSFrPpEcZinPM5xmqGvzWGDLnOLhcmz3Iv4ymldO/P75wa3yPZCv2y4MNEMa/m9kHbaTHtKyxNJsoXIhWinqT8l94ePO7vflwsGHPiF0VzH8OSSL/4DRNH4zNVYWuvGDHAjyqPBuewdB04t89/1O/w1cDnyilFU='
+import dbConfig
 
 app = Flask(__name__)
 #app.config['TESTING'] = True
@@ -111,7 +108,7 @@ def reply(replyToken, textList):
     LINE_API = 'https://api.line.me/v2/bot/message/reply'  # reply
     headers = {
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': LINE_API_KEY
+        'Authorization': dbConfig.lineConfig['LINE_API_KEY_BOT']
     }
     print(textList)
     msgs = []

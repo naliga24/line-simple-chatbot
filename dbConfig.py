@@ -8,6 +8,10 @@ def config():
         database="heroku_766db354cb15187",
     )
 
+lineConfig = {
+    'LINE_API_KEY_BOT' : 'Bearer /mnxywYk+P8dLSFrPpEcZinPM5xmqGvzWGDLnOLhcmz3Iv4ymldO/P75wa3yPZCv2y4MNEMa/m9kHbaTHtKyxNJsoXIhWinqT8l94ePO7vflwsGHPiF0VzH8OSSL/4DRNH4zNVYWuvGDHAjyqPBuewdB04t89/1O/w1cDnyilFU='
+    }
+    
 # def config():
 #     return mysql.connector.connect(
 #         host="127.0.0.1",
