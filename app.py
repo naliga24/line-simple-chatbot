@@ -69,6 +69,11 @@ def bot():
             reply(replyToken, replyQueue[:5])
             return 'OK', 200
 
+        if(text[0] == 'นักศึกษา' or text[0] == 'student' or text[0] == 'นักเรียน' or text[0] == 'students' or text[0] == 'เด็ก' or text[0] == 'boy' or text[0] == 'boys'):
+            replyQueue.append(student.select_student_info_all())
+            reply(replyToken, replyQueue[:5])
+            return 'OK', 200
+
         if(len(text[0]) == 10 and text[0].isdigit()):
             replyQueue.append(student.select_student_info(text[0]))
             reply(replyToken, replyQueue[:5])
