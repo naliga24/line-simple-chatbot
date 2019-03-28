@@ -10,7 +10,7 @@ def config():
 
 
 lineConfig = {
-    'LINE_API_KEY_BOT': 'Bearer TWraVVwVss8PTboEcpRtXeclwUc7hIMvPxYCuFyWMl9fVAk3/KPFfM+vGvO15Bkz2y4MNEMa/m9kHbaTHtKyxNJsoXIhWinqT8l94ePO7vcTRPJJHL3zzWK9/6eYhKcQ3IECeIFWWn1kk+3Q3WbbiwdB04t89/1O/w1cDnyilFU='
+    'LINE_API_KEY_BOT': 'Bearer Jw5n0d+Mur0QjhafGbXQmxIGTK7Dz4LHozZRnM4d26Smx058IABzvZ4ngLfpKQ2dSm6jggm6sMaVH8lR464NcBAudE9QLGKy+CrTgreZaLa+rq8coupkCc2FD6/nA1BlwbVaHvXgt7SHh92NZAeowAdB04t89/1O/w1cDnyilFU='
 }
 
 # def config():
